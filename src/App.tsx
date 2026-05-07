@@ -1,8 +1,5 @@
-import { lazy, Suspense, useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-
-const SeoAnalyser = lazy(() => import('./seo/SeoAnalyser'))
-
 import {
   ArrowLeft,
   ArrowRight,
@@ -52,20 +49,6 @@ function WhatsAppIcon({ size = 16, className }: { size?: number; className?: str
 }
 
 export default function App() {
-  if (typeof window !== 'undefined' && window.location.pathname === '/seo-analyse') {
-    return (
-      <Suspense
-        fallback={
-          <main className="grid min-h-screen w-full place-items-center bg-black text-ink/40">
-            <Loader2 size={20} className="animate-spin" />
-          </main>
-        }
-      >
-        <SeoAnalyser />
-      </Suspense>
-    )
-  }
-
   return (
     <main className="relative min-h-screen w-full overflow-x-hidden bg-black text-ink">
       <Nav />
@@ -451,44 +434,28 @@ const featureCards = [
   {
     Icon: Compass,
     title: 'Senior Finance Support',
-    body: [
-      'Finance support that brings',
-      'structure, clarity, and better',
-      'control as your business grows.',
-    ],
+    body: 'Finance support that brings structure, clarity, and better control as your business grows.',
     status: 'Available now',
     highlight: false,
   },
   {
     Icon: BarChart3,
     title: 'Management Reporting',
-    body: [
-      'Monthly reporting with clear insight',
-      'into business performance, so you can',
-      'make better decisions for growth.',
-    ],
+    body: 'Monthly reporting with clear insight into business performance, so you can make better decisions for growth.',
     status: 'Available now',
     highlight: false,
   },
   {
     Icon: TrendingUp,
-    title: 'Cashflow forecast',
-    body: [
-      'A forward view of your cash, so you',
-      'know where it’s flowing and where',
-      'pressure may appear.',
-    ],
+    title: 'Cashflow Forecast',
+    body: 'A forward view of your cash, so you know where it is flowing and where pressure may appear.',
     status: 'Available now',
     highlight: false,
   },
   {
     Icon: Sparkles,
     title: 'AI & Automation',
-    body: [
-      'Automation that delivers faster reports',
-      'with less manual work, supporting',
-      'your team’s focus on growth.',
-    ],
+    body: 'Automation that delivers faster reports with less manual work, supporting your team’s focus on growth.',
     status: 'Coming 2026',
     highlight: true,
   },
@@ -513,7 +480,7 @@ function ComingSoon() {
   return (
     <section
       id="whats-next"
-      className="relative isolate overflow-hidden bg-[#fbfbfd] py-20 sm:py-24 md:py-32 lg:py-40"
+      className="relative isolate overflow-hidden bg-[#fbfbfd] py-[72px] sm:py-24 md:py-28 lg:py-32"
     >
       <div
         aria-hidden
@@ -578,76 +545,77 @@ function ComingSoon() {
           whileInView="visible"
           viewport={{ once: true, margin: '-80px' }}
           variants={container}
-          className="mt-12 grid grid-cols-1 items-stretch gap-4 sm:mt-16 md:mt-20 md:grid-cols-2 md:gap-5 min-[1400px]:grid-cols-4"
+          className="mt-12 grid grid-cols-1 items-stretch gap-4 sm:mt-14 md:mt-16 md:grid-cols-2 md:gap-5 lg:gap-6 min-[1400px]:grid-cols-4"
         >
           {featureCards.map(({ Icon, title, body, status, highlight }) => (
             <motion.li
               key={title}
               variants={cardItem}
-              className={`group relative flex min-h-[232px] flex-col items-center overflow-hidden rounded-3xl p-7 text-center transition-all duration-300 sm:min-h-[236px] sm:items-start sm:text-left ${
+              className={`group relative flex min-h-[224px] flex-col overflow-hidden rounded-[24px] p-6 text-left transition-all duration-300 sm:min-h-[232px] sm:p-7 ${
                 highlight
                   ? 'border border-[#1d1d1f] bg-[#1d1d1f] hover:border-[#2997ff]/50 hover:shadow-[0_20px_50px_-12px_rgba(0,0,0,0.45)]'
                   : 'border border-black/[0.08] bg-white hover:border-black/20 hover:shadow-[0_12px_40px_-12px_rgba(0,0,0,0.18)]'
               }`}
             >
-              <span
-                className={`absolute right-5 top-5 inline-flex items-center gap-1.5 rounded-pill border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] z-10 ${
-                  highlight
-                    ? 'border-[#2997ff]/40 bg-[#2997ff]/15 text-[#5cb3ff]'
-                    : 'border-emerald-500/20 bg-emerald-50 text-emerald-700'
-                }`}
-              >
-                <span
-                  className={`h-1.5 w-1.5 rounded-full ${
-                    highlight ? 'animate-pulse bg-[#2997ff]' : 'bg-emerald-500'
-                  }`}
-                />
-                {status}
-              </span>
-
               <div
                 aria-hidden
                 className={`pointer-events-none absolute -right-16 -top-16 h-44 w-44 rounded-full blur-3xl transition-opacity duration-500 ${
                   highlight
                     ? 'bg-gradient-to-br from-[#2997ff]/35 to-transparent opacity-70'
                     : 'bg-gradient-to-br from-[#2997ff]/12 to-transparent opacity-0 group-hover:opacity-100'
-                }`}
+                  }`}
               />
 
-              <div
-                className={`relative grid h-11 w-11 place-items-center rounded-xl ${
-                  highlight
-                    ? 'border border-[#2997ff]/25 bg-[#2997ff]/10'
-                    : 'border border-black/[0.08] bg-black/[0.03]'
-                }`}
-              >
-                <Icon
-                  size={20}
-                  strokeWidth={1.6}
-                  className={highlight ? 'text-[#2997ff]' : 'text-[#1d1d1f]'}
-                />
+              <div className="relative flex w-full items-start justify-between gap-4">
+                <div
+                  className={`grid h-11 w-11 shrink-0 place-items-center rounded-[14px] ${
+                    highlight
+                      ? 'border border-[#2997ff]/25 bg-[#2997ff]/10'
+                      : 'border border-black/[0.08] bg-black/[0.03]'
+                  }`}
+                >
+                  <Icon
+                    size={20}
+                    strokeWidth={1.6}
+                    className={highlight ? 'text-[#2997ff]' : 'text-[#1d1d1f]'}
+                  />
+                </div>
+
+                <span
+                  className={`inline-flex shrink-0 items-center gap-1.5 rounded-pill border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] ${
+                    highlight
+                      ? 'border-[#2997ff]/40 bg-[#2997ff]/15 text-[#5cb3ff]'
+                      : 'border-emerald-500/20 bg-emerald-50 text-emerald-700'
+                  }`}
+                >
+                  <span
+                    className={`h-1.5 w-1.5 rounded-full ${
+                      highlight ? 'animate-pulse bg-[#2997ff]' : 'bg-emerald-500'
+                    }`}
+                  />
+                  {status}
+                </span>
               </div>
 
               <h3
-                className={`relative mt-6 min-h-[27px] w-full ${
+                className={`relative mt-7 w-full ${
                   highlight ? 'text-white' : 'text-[#1d1d1f]'
                 }`}
-                style={{ fontSize: '21px', letterSpacing: '-0.012em', lineHeight: '1.25', fontWeight: 700 }}
+                style={{
+                  fontSize: '21px',
+                  letterSpacing: '-0.012em',
+                  lineHeight: '1.22',
+                  fontWeight: 700,
+                }}
               >
                 {title}
               </h3>
               <p
-                className={`relative mt-3 min-h-[68px] w-full text-[13px] font-normal leading-[1.55] sm:min-h-[72px] ${
+                className={`relative mt-3 max-w-[32ch] text-[14px] font-normal leading-[1.55] ${
                   highlight ? 'text-white/70' : 'text-[#6e6e73]'
                 }`}
               >
-                {Array.isArray(body)
-                  ? body.map((line) => (
-                      <span key={line} className="block whitespace-nowrap">
-                        {line}
-                      </span>
-                    ))
-                  : body}
+                {body}
               </p>
             </motion.li>
           ))}
@@ -658,7 +626,7 @@ function ComingSoon() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7, ease, delay: 0.1 }}
-          className="mx-auto mt-12 max-w-[720px] rounded-pill border border-black/[0.07] bg-white px-5 py-3 text-center text-[13px] leading-[1.5] text-[#6e6e73] shadow-[0_8px_28px_-22px_rgba(15,15,30,0.22)] sm:mt-14 md:mt-16"
+          className="mx-auto mt-10 max-w-[760px] rounded-[18px] border border-black/[0.07] bg-white px-5 py-3 text-center text-[13px] leading-[1.5] text-[#6e6e73] shadow-[0_8px_28px_-22px_rgba(15,15,30,0.22)] sm:mt-12 sm:rounded-pill md:mt-14"
         >
           Senior Finance Support, Management Reporting, and Cashflow forecast are available today.
           AI &amp; Automation launches in 2026.
@@ -952,7 +920,7 @@ function Scorecard() {
   return (
     <section
       id="audit"
-      className="relative isolate scroll-mt-20 overflow-hidden bg-[#f2f7fb] py-10 sm:py-12 md:py-16"
+      className="relative isolate scroll-mt-20 overflow-hidden bg-[#f2f7fb] py-12 sm:py-16 md:py-20"
     >
       <div
         aria-hidden
@@ -969,7 +937,7 @@ function Scorecard() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="relative overflow-hidden rounded-[24px] border border-white/70 bg-[#0b1220] p-4 shadow-[0_28px_80px_-38px_rgba(8,24,52,0.62),0_1px_0_rgba(255,255,255,0.7)_inset] sm:rounded-[32px] md:p-5"
+          className="relative overflow-hidden rounded-[24px] border border-white/70 bg-[#0b1220] p-4 shadow-[0_28px_80px_-38px_rgba(8,24,52,0.62),0_1px_0_rgba(255,255,255,0.7)_inset] sm:rounded-[32px] sm:p-5 md:p-6"
         >
           <div
             aria-hidden
@@ -980,10 +948,10 @@ function Scorecard() {
             className="pointer-events-none absolute -bottom-28 right-4 h-72 w-72 rounded-full bg-[#5cb3ff]/20 blur-3xl"
           />
 
-          <div className="relative grid gap-4 lg:grid-cols-[0.82fr,1.18fr] lg:items-stretch">
+          <div className="relative grid gap-4 lg:grid-cols-[0.8fr,1.2fr] lg:items-stretch lg:gap-5">
             <div
               data-scorecard-panel="summary"
-              className="flex flex-col items-center justify-between rounded-[22px] border border-white/10 bg-white/[0.06] p-5 text-center text-white shadow-[0_1px_0_rgba(255,255,255,0.12)_inset] sm:p-6 lg:items-start lg:p-7 lg:text-left lg:min-h-[440px]"
+              className="flex flex-col items-center justify-between rounded-[22px] border border-white/10 bg-white/[0.06] p-5 text-center text-white shadow-[0_1px_0_rgba(255,255,255,0.12)_inset] sm:p-6 lg:min-h-[440px] lg:items-start lg:p-8 lg:text-left"
             >
               <div className="w-full">
                 <span className="inline-flex items-center gap-2 rounded-pill border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#9fd0ff]">
@@ -1002,16 +970,16 @@ function Scorecard() {
                   30-second finance check.
                 </h2>
 
-                <p className="mx-auto mt-3 max-w-[400px] text-[15px] leading-[1.5] text-white/72 lg:mx-0">
+                <p className="mx-auto mt-3 max-w-[380px] text-[15px] leading-[1.55] text-white/72 lg:mx-0">
                   See which area needs attention first: cash, reporting, or planning.
                 </p>
               </div>
 
-              <div className="mt-5 flex flex-wrap justify-center gap-2 lg:justify-start">
+              <div className="mt-6 flex flex-wrap justify-center gap-2.5 lg:justify-start">
                 {SCORECARD_PILLAR_DETAILS.map(({ key }) => (
                   <span
                     key={key}
-                    className="inline-flex items-center gap-2 rounded-pill border border-white/10 bg-white/[0.07] px-3 py-2 text-[12px] font-semibold text-white/82"
+                    className="inline-flex items-center gap-2 rounded-pill border border-white/10 bg-white/[0.07] px-3 py-2 text-[12px] font-semibold leading-none text-white/82"
                   >
                     <span className="h-1.5 w-1.5 rounded-full bg-[#5cb3ff]" />
                     {PILLAR_META[key].label}
@@ -1088,7 +1056,7 @@ function ScorecardCardChrome({ children }: { children: ReactNode }) {
   return (
     <div
       data-scorecard-panel="tool"
-      className="relative flex h-full w-full flex-col overflow-hidden rounded-[22px] border border-white/80 bg-white p-5 shadow-[0_28px_70px_-34px_rgba(3,12,30,0.58),0_1px_0_rgba(255,255,255,0.95)_inset] sm:rounded-[26px] sm:p-6 md:p-8 lg:min-h-[440px]"
+      className="relative flex h-full w-full flex-col overflow-hidden rounded-[22px] border border-white/80 bg-white p-5 shadow-[0_28px_70px_-34px_rgba(3,12,30,0.58),0_1px_0_rgba(255,255,255,0.95)_inset] sm:rounded-[26px] sm:p-6 md:p-7 lg:min-h-[440px] lg:p-8"
     >
       <div
         aria-hidden
@@ -1130,17 +1098,17 @@ function ScorecardIntro({ onStart }: { onStart: () => void }) {
             to focus first.
           </p>
 
-          <ul className="mt-5 grid w-full grid-cols-1 gap-2.5 sm:mt-6 sm:grid-cols-3">
+          <ul className="mt-6 grid w-full grid-cols-1 gap-2.5 sm:grid-cols-3 sm:gap-3">
             {previewPillars.map(({ Icon, key, hint }) => (
               <li
                 key={key}
-                className="flex items-center gap-3 rounded-2xl border border-black/[0.06] bg-[#fbfbfd] p-3 text-left sm:flex-col sm:items-start sm:gap-3 sm:p-4"
+                className="flex items-center gap-3 rounded-[18px] border border-black/[0.07] bg-[#fbfbfd] p-3.5 text-left sm:flex-col sm:items-start sm:gap-3 sm:p-4"
               >
                 <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-[#0071E3]/15 bg-white text-[#0071E3]">
                   <Icon size={16} strokeWidth={1.8} />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-[13px] font-semibold leading-tight text-[#1d1d1f]">
+                  <p className="text-[13px] font-semibold leading-[1.25] text-[#1d1d1f]">
                     {PILLAR_META[key].label}
                   </p>
                   <p className="mt-1 text-[12px] leading-[1.45] text-[#6e6e73]">{hint}</p>
@@ -1149,7 +1117,7 @@ function ScorecardIntro({ onStart }: { onStart: () => void }) {
             ))}
           </ul>
 
-          <div className="mt-auto flex w-full flex-col items-center gap-3 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-auto flex w-full flex-col items-center gap-3 pt-7 sm:flex-row sm:items-center sm:justify-between">
             <button
               type="button"
               onClick={onStart}
@@ -1438,16 +1406,16 @@ function ScorecardReveal({
           </div>
 
           {/* Compact next-steps grid */}
-          <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-3 sm:mt-6">
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:mt-6 sm:grid-cols-3">
             {(Object.keys(PILLAR_META) as Pillar[]).map((p) => (
               <div
                 key={p}
-                className="rounded-xl border border-black/[0.06] bg-[#fbfbfd] p-3"
+                className="rounded-[18px] border border-black/[0.07] bg-[#fbfbfd] p-4"
               >
                 <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#0071E3]">
                   {PILLAR_META[p].label}
                 </p>
-                <p className="mt-1.5 text-[12.5px] leading-[1.45] text-[#1d1d1f] sm:text-[13px]">
+                <p className="mt-2 text-[12.5px] leading-[1.48] text-[#1d1d1f] sm:text-[13px]">
                   {getNextStep(p, scores.perPillar[p])}
                 </p>
               </div>
@@ -1499,21 +1467,26 @@ function ScorecardCapture({
     <motion.div {...SCORECARD_STEP_ENTER} className="h-full w-full">
       <ScorecardCardChrome>
         <form onSubmit={onSubmit} className="relative">
-          <div className="rounded-2xl border border-[#0071E3]/15 bg-[#eef5ff] px-5 py-4">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#0071E3]">
-              Your score
-            </p>
-            <p className="mt-1.5 text-[15px] text-[#1d1d1f] sm:text-[16px]">
-              <span className="font-medium">{scores.overall}/100</span>
-              <span className="text-[#6e6e73]">
-                {' '}· Cash {scores.perPillar.cash} · Reporting {scores.perPillar.reporting} ·
-                Planning {scores.perPillar.planning}
-              </span>
-            </p>
+          <div className="rounded-[20px] border border-[#0071E3]/15 bg-[#eef5ff] p-4 sm:p-5">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#0071E3]">
+                  Your score
+                </p>
+                <p className="mt-1 text-[24px] font-semibold leading-none tracking-[-0.02em] text-[#1d1d1f]">
+                  {scores.overall}/100
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <ScoreMiniPill label="Cash" value={scores.perPillar.cash} />
+                <ScoreMiniPill label="Reporting" value={scores.perPillar.reporting} />
+                <ScoreMiniPill label="Planning" value={scores.perPillar.planning} />
+              </div>
+            </div>
           </div>
 
           <h3
-            className="mt-7 tracking-[-0.02em] text-[#1d1d1f]"
+            className="mt-6 tracking-[-0.02em] text-[#1d1d1f] sm:mt-7"
             style={{ fontSize: 'clamp(22px, 2.4vw, 28px)', lineHeight: '1.2', fontWeight: 400 }}
           >
             Where should we send your detailed breakdown?
@@ -1523,7 +1496,7 @@ function ScorecardCapture({
             could ask Cunos in a free 30-minute call.
           </p>
 
-          <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
             <Field name="name" label="Name" placeholder="Your full name" required />
             <Field
               name="email"
@@ -1612,6 +1585,15 @@ function ScorecardCapture({
   )
 }
 
+function ScoreMiniPill({ label, value }: { label: string; value: number }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-pill border border-[#0071E3]/15 bg-white px-2.5 py-1 text-[12px] font-medium text-[#1d1d1f] shadow-[0_1px_2px_rgba(15,15,30,0.03)]">
+      <span className="text-[#6e6e73]">{label}</span>
+      <span>{value}</span>
+    </span>
+  )
+}
+
 /* ------------------------------- CONTACT ------------------------------ */
 
 function Contact() {
@@ -1671,7 +1653,7 @@ function Contact() {
   return (
     <section
       id="contact"
-      className="relative isolate overflow-hidden bg-[#fbfbfd] py-20 sm:py-24 md:py-32 lg:py-40"
+      className="relative isolate overflow-hidden bg-[#fbfbfd] py-16 sm:py-20 md:py-28 lg:py-32"
     >
       <div
         aria-hidden
@@ -1683,7 +1665,7 @@ function Contact() {
       />
 
       <div className="relative mx-auto w-full max-w-[1280px] px-5 sm:px-6 md:px-10">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-20 lg:gap-24">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-16 lg:gap-20">
           {/* Left — eyebrow, headline, supporting copy, contact items */}
           <div className="text-center md:col-span-5 md:text-left">
             <div className="flex items-center justify-center gap-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#0071E3] md:justify-start">
@@ -1708,7 +1690,7 @@ function Contact() {
               first audit and identify your road to financial control.
             </p>
 
-            <ContactDetails className="mt-10 hidden space-y-5 rounded-[24px] border border-black/[0.06] bg-white/75 p-5 shadow-[0_16px_48px_-34px_rgba(15,15,30,0.35)] sm:mt-12 md:block" />
+            <ContactDetails className="mt-9 hidden space-y-4 rounded-[24px] border border-black/[0.06] bg-white/75 p-5 shadow-[0_16px_48px_-34px_rgba(15,15,30,0.35)] sm:mt-10 md:block" />
           </div>
 
           {/* Right — form card */}
@@ -1718,11 +1700,11 @@ function Contact() {
             ) : (
               <form
                 onSubmit={handleSubmit}
-                className="relative overflow-hidden rounded-[24px] border border-[#0071E3]/20 bg-gradient-to-b from-white to-[#f6fbff] p-6 shadow-[0_34px_90px_-34px_rgba(0,113,227,0.38),0_10px_30px_-22px_rgba(15,15,30,0.28)] ring-1 ring-[#0071E3]/10 sm:rounded-[28px] sm:p-9 md:p-12"
+                className="relative overflow-hidden rounded-[24px] border border-[#0071E3]/20 bg-gradient-to-b from-white to-[#f6fbff] p-5 shadow-[0_34px_90px_-34px_rgba(0,113,227,0.38),0_10px_30px_-22px_rgba(15,15,30,0.28)] ring-1 ring-[#0071E3]/10 sm:rounded-[28px] sm:p-8 md:p-10"
               >
                 <div aria-hidden className="absolute inset-x-6 top-0 h-1 rounded-b-full bg-[#0071E3]" />
 
-                <div className="mb-7 border-b border-black/[0.06] pb-6 text-center sm:mb-8 sm:pb-7 sm:text-left">
+                <div className="mb-6 border-b border-black/[0.06] pb-6 text-center sm:mb-7 sm:text-left">
                   <span className="inline-flex items-center gap-2 rounded-pill bg-[#0071E3]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#0071E3]">
                     <Mail size={13} strokeWidth={1.8} />
                     Contact form
@@ -1735,7 +1717,7 @@ function Contact() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
                   <Field name="name" label="Name" placeholder="Your full name" required />
                   <Field
                     name="email"
@@ -1779,7 +1761,7 @@ function Contact() {
                   </div>
                 )}
 
-                <div className="mt-8 flex flex-col gap-4 border-t border-black/[0.06] pt-7">
+                <div className="mt-7 flex flex-col gap-4 border-t border-black/[0.06] pt-6">
                   <button
                     type="submit"
                     disabled={sending}
@@ -1805,7 +1787,7 @@ function Contact() {
               </form>
             )}
 
-            <ContactDetails className="mt-8 space-y-5 rounded-[24px] border border-black/[0.06] bg-white/80 p-5 shadow-[0_14px_40px_-32px_rgba(15,15,30,0.32)] md:hidden" />
+            <ContactDetails className="mt-7 space-y-4 rounded-[24px] border border-black/[0.06] bg-white/80 p-5 shadow-[0_14px_40px_-32px_rgba(15,15,30,0.32)] md:hidden" />
           </div>
         </div>
       </div>
@@ -1865,15 +1847,15 @@ function ContactItem({
   value: ReactNode
 }) {
   return (
-    <li className="flex items-start gap-4">
-      <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-black/[0.08] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+    <li className="flex items-start gap-3.5">
+      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-[14px] border border-black/[0.08] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
         <Icon size={17} strokeWidth={1.6} className="text-[#1d1d1f]" />
       </div>
       <div className="min-w-0 pt-0.5">
         <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#86868b]">
           {label}
         </p>
-        <p className="mt-1 text-[16px] text-[#1d1d1f]">{value}</p>
+        <p className="mt-1 text-[15px] leading-[1.35] text-[#1d1d1f] sm:text-[16px]">{value}</p>
       </div>
     </li>
   )
@@ -1923,7 +1905,7 @@ type FieldProps = {
 
 function Field({ name, label, placeholder, type = 'text', textarea, required }: FieldProps) {
   const baseCls =
-    'block w-full rounded-2xl border border-black/[0.13] bg-white px-4 py-3.5 text-[16px] text-[#1d1d1f] placeholder-[#86868b] shadow-[0_1px_2px_rgba(15,15,30,0.03)] transition-all duration-200 focus:border-[#2997ff] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#2997ff]/15 sm:text-[15px]'
+    'block w-full rounded-[18px] border border-black/[0.13] bg-white px-4 py-3.5 text-[16px] leading-[1.35] text-[#1d1d1f] placeholder-[#86868b] shadow-[0_1px_2px_rgba(15,15,30,0.03)] transition-all duration-200 focus:border-[#2997ff] focus:bg-white focus:outline-none focus:ring-4 focus:ring-[#2997ff]/15 sm:text-[15px]'
   return (
     <label className="block">
       <span className="mb-2 block text-[12px] font-medium uppercase tracking-[0.08em] text-[#86868b]">
@@ -1960,8 +1942,8 @@ function Footer() {
         }}
       />
 
-      <div className="mx-auto w-full max-w-[1280px] px-5 py-14 sm:px-6 sm:py-16 md:px-10 md:py-20">
-        <div className="flex flex-col items-center gap-6 border-b border-black/[0.08] pb-10 text-center md:flex-row md:items-center md:justify-between md:pb-12 md:text-left">
+      <div className="mx-auto w-full max-w-[1280px] px-5 py-12 sm:px-6 sm:py-14 md:px-10 md:py-[72px]">
+        <div className="flex flex-col items-center gap-6 border-b border-black/[0.08] pb-9 text-center md:flex-row md:items-center md:justify-between md:pb-10 md:text-left">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0071E3]">
               Next step
@@ -1993,7 +1975,7 @@ function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-12 pt-10 md:grid-cols-12 md:gap-16 md:pt-12">
+        <div className="grid grid-cols-1 gap-10 pt-9 md:grid-cols-12 md:gap-14 md:pt-10">
           {/* Brand block */}
           <div className="text-center md:col-span-5 md:text-left">
             <a href="#top" className="inline-block">
@@ -2023,7 +2005,7 @@ function Footer() {
 
           {/* Link columns */}
           <div className="md:col-span-7">
-            <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 md:gap-x-10">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-9 sm:grid-cols-3 md:gap-x-10">
               <FooterCol
                 title="Site"
                 links={[
@@ -2053,7 +2035,7 @@ function Footer() {
         </div>
 
         {/* Legal bar */}
-        <div className="mt-16 flex flex-col items-center gap-3 border-t border-black/[0.08] pt-7 text-center text-[12px] text-[#86868b] md:flex-row md:items-center md:justify-between md:text-left">
+        <div className="mt-12 flex flex-col items-center gap-3 border-t border-black/[0.08] pt-7 text-center text-[12px] text-[#86868b] md:mt-14 md:flex-row md:items-center md:justify-between md:text-left">
           <p>© {year} Cunos Consulting Ltd. All rights reserved.</p>
           <p className="inline-flex items-center justify-center gap-1.5">
             <MapPin size={12} strokeWidth={1.8} className="text-[#86868b]" />
