@@ -591,7 +591,7 @@ function ComingSoon() {
               }`}
             >
               <span
-                className={`absolute right-5 top-5 inline-flex items-center gap-1.5 rounded-pill border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] ${
+                className={`absolute right-5 top-5 inline-flex items-center gap-1.5 rounded-pill border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-[0.12em] z-10 ${
                   highlight
                     ? 'border-[#2997ff]/40 bg-[#2997ff]/15 text-[#5cb3ff]'
                     : 'border-emerald-500/20 bg-emerald-50 text-emerald-700'
@@ -983,16 +983,16 @@ function Scorecard() {
           <div className="relative grid gap-4 lg:grid-cols-[0.82fr,1.18fr] lg:items-stretch">
             <div
               data-scorecard-panel="summary"
-              className="flex flex-col justify-between rounded-[22px] border border-white/10 bg-white/[0.06] p-5 text-white shadow-[0_1px_0_rgba(255,255,255,0.12)_inset] sm:p-6 md:p-7 lg:min-h-[440px]"
+              className="flex flex-col items-center justify-between rounded-[22px] border border-white/10 bg-white/[0.06] p-5 text-center text-white shadow-[0_1px_0_rgba(255,255,255,0.12)_inset] sm:p-6 lg:items-start lg:p-7 lg:text-left lg:min-h-[440px]"
             >
-              <div>
+              <div className="w-full">
                 <span className="inline-flex items-center gap-2 rounded-pill border border-white/15 bg-white/10 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#9fd0ff]">
                   <Sparkles size={13} strokeWidth={2} />
                   Finance audit
                 </span>
 
                 <h2
-                  className="mt-4 max-w-[420px] tracking-[-0.025em] text-white"
+                  className="mx-auto mt-4 max-w-[420px] tracking-[-0.025em] text-white lg:mx-0"
                   style={{
                     fontSize: 'clamp(28px, 2.8vw, 40px)',
                     lineHeight: '1.04',
@@ -1002,12 +1002,12 @@ function Scorecard() {
                   30-second finance check.
                 </h2>
 
-                <p className="mt-3 max-w-[400px] text-[15px] leading-[1.5] text-white/72">
+                <p className="mx-auto mt-3 max-w-[400px] text-[15px] leading-[1.5] text-white/72 lg:mx-0">
                   See which area needs attention first: cash, reporting, or planning.
                 </p>
               </div>
 
-              <div className="mt-5 flex flex-wrap gap-2">
+              <div className="mt-5 flex flex-wrap justify-center gap-2 lg:justify-start">
                 {SCORECARD_PILLAR_DETAILS.map(({ key }) => (
                   <span
                     key={key}
@@ -1019,7 +1019,7 @@ function Scorecard() {
                 ))}
               </div>
 
-              <div className="mt-6 flex flex-wrap items-center gap-2 text-[12px] font-medium text-white/62">
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-[12px] font-medium text-white/62 lg:justify-start">
                 <span className="inline-flex items-center gap-1.5 rounded-pill bg-white/10 px-3 py-1.5">
                   <Clock size={13} />
                   30 seconds
@@ -1109,8 +1109,8 @@ function ScorecardIntro({ onStart }: { onStart: () => void }) {
   return (
     <motion.div {...SCORECARD_STEP_ENTER} className="h-full w-full">
       <ScorecardCardChrome>
-        <div className="flex h-full flex-col">
-          <div className="flex items-start justify-between gap-4">
+        <div className="flex h-full flex-col items-center text-center sm:items-stretch sm:text-left">
+          <div className="flex w-full items-center justify-between gap-4">
             <div className="grid h-12 w-12 place-items-center rounded-2xl border border-[#0071E3]/20 bg-[#eef5ff]">
               <Sparkles size={20} strokeWidth={1.6} className="text-[#0071E3]" />
             </div>
@@ -1130,11 +1130,11 @@ function ScorecardIntro({ onStart }: { onStart: () => void }) {
             to focus first.
           </p>
 
-          <ul className="mt-5 grid grid-cols-1 gap-2.5 sm:mt-6 sm:grid-cols-3">
+          <ul className="mt-5 grid w-full grid-cols-1 gap-2.5 sm:mt-6 sm:grid-cols-3">
             {previewPillars.map(({ Icon, key, hint }) => (
               <li
                 key={key}
-                className="flex items-start gap-3 rounded-2xl border border-black/[0.06] bg-[#fbfbfd] p-3 sm:flex-col sm:items-start sm:gap-3 sm:p-4"
+                className="flex items-center gap-3 rounded-2xl border border-black/[0.06] bg-[#fbfbfd] p-3 text-left sm:flex-col sm:items-start sm:gap-3 sm:p-4"
               >
                 <div className="grid h-9 w-9 shrink-0 place-items-center rounded-xl border border-[#0071E3]/15 bg-white text-[#0071E3]">
                   <Icon size={16} strokeWidth={1.8} />
@@ -1149,7 +1149,7 @@ function ScorecardIntro({ onStart }: { onStart: () => void }) {
             ))}
           </ul>
 
-          <div className="mt-auto flex flex-col gap-3 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-auto flex w-full flex-col items-center gap-3 pt-6 sm:flex-row sm:items-center sm:justify-between">
             <button
               type="button"
               onClick={onStart}
@@ -1685,8 +1685,8 @@ function Contact() {
       <div className="relative mx-auto w-full max-w-[1280px] px-5 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-20 lg:gap-24">
           {/* Left — eyebrow, headline, supporting copy, contact items */}
-          <div className="md:col-span-5">
-            <div className="flex items-center gap-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#0071E3]">
+          <div className="text-center md:col-span-5 md:text-left">
+            <div className="flex items-center justify-center gap-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#0071E3] md:justify-start">
               <span className="h-px w-7 bg-[#0071E3] sm:w-8" />
               Contact
             </div>
@@ -1703,7 +1703,7 @@ function Contact() {
               Let's talk.
             </h2>
 
-            <p className="mt-5 max-w-[460px] text-[16px] font-normal leading-[1.55] text-[#6e6e73] sm:mt-6 sm:text-[18px]">
+            <p className="mx-auto mt-5 max-w-[460px] text-[16px] font-normal leading-[1.55] text-[#6e6e73] sm:mt-6 sm:text-[18px] md:mx-0">
               Tell us where you struggle with your finances. In a personal call, we'll provide a
               first audit and identify your road to financial control.
             </p>
@@ -1722,7 +1722,7 @@ function Contact() {
               >
                 <div aria-hidden className="absolute inset-x-6 top-0 h-1 rounded-b-full bg-[#0071E3]" />
 
-                <div className="mb-7 border-b border-black/[0.06] pb-6 sm:mb-8 sm:pb-7">
+                <div className="mb-7 border-b border-black/[0.06] pb-6 text-center sm:mb-8 sm:pb-7 sm:text-left">
                   <span className="inline-flex items-center gap-2 rounded-pill bg-[#0071E3]/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#0071E3]">
                     <Mail size={13} strokeWidth={1.8} />
                     Contact form
@@ -1730,7 +1730,7 @@ function Contact() {
                   <h3 className="mt-4 text-[26px] font-semibold leading-[1.15] tracking-[-0.02em] text-[#1d1d1f] sm:text-[32px]">
                     Send a short message.
                   </h3>
-                  <p className="mt-2 max-w-[520px] text-[14px] leading-[1.55] text-[#6e6e73] sm:text-[15px]">
+                  <p className="mx-auto mt-2 max-w-[520px] text-[14px] leading-[1.55] text-[#6e6e73] sm:mx-0 sm:text-[15px]">
                     Tell us what feels unclear. We’ll come back within one working day.
                   </p>
                 </div>
@@ -1961,7 +1961,7 @@ function Footer() {
       />
 
       <div className="mx-auto w-full max-w-[1280px] px-5 py-14 sm:px-6 sm:py-16 md:px-10 md:py-20">
-        <div className="flex flex-col gap-6 border-b border-black/[0.08] pb-10 md:flex-row md:items-center md:justify-between md:pb-12">
+        <div className="flex flex-col items-center gap-6 border-b border-black/[0.08] pb-10 text-center md:flex-row md:items-center md:justify-between md:pb-12 md:text-left">
           <div>
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#0071E3]">
               Next step
@@ -1969,13 +1969,13 @@ function Footer() {
             <h2 className="mt-3 text-[30px] font-semibold leading-[1.12] tracking-[-0.02em] text-[#1d1d1f] sm:text-[38px]">
               Ready for clearer finance control?
             </h2>
-            <p className="mt-3 max-w-[560px] text-[15px] leading-[1.55] text-[#6e6e73] sm:text-[16px]">
+            <p className="mx-auto mt-3 max-w-[560px] text-[15px] leading-[1.55] text-[#6e6e73] sm:text-[16px] md:mx-0">
               Send a short message or contact Cunos directly. We’ll come back within one working
               day.
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row md:shrink-0">
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row md:shrink-0">
             <a
               href="#contact"
               className="inline-flex items-center justify-center gap-2 rounded-pill bg-[#0071E3] px-6 py-3 text-[14px] font-medium text-white transition-colors hover:bg-[#0077ED]"
@@ -1995,17 +1995,17 @@ function Footer() {
 
         <div className="grid grid-cols-1 gap-12 pt-10 md:grid-cols-12 md:gap-16 md:pt-12">
           {/* Brand block */}
-          <div className="md:col-span-5">
+          <div className="text-center md:col-span-5 md:text-left">
             <a href="#top" className="inline-block">
               <p className="font-display text-[20px] font-semibold tracking-[-0.014em] text-[#1d1d1f] sm:text-[22px]">
                 Cunos Consulting
               </p>
             </a>
-            <p className="mt-3 max-w-[340px] text-[14px] leading-[1.55] text-[#6e6e73] sm:text-[15px]">
+            <p className="mx-auto mt-3 max-w-[340px] text-[14px] leading-[1.55] text-[#6e6e73] sm:text-[15px] md:mx-0">
               Senior finance support, reporting, and cash visibility — made for founders.
             </p>
 
-            <div className="mt-6 flex items-center gap-2.5 sm:mt-7">
+            <div className="mt-6 flex items-center justify-center gap-2.5 sm:mt-7 md:justify-start">
               <SocialLink href={CONTACT.whatsappHref} label="WhatsApp Cunos">
                 <WhatsAppIcon size={15} className="text-[#25D366]" />
               </SocialLink>
@@ -2053,9 +2053,9 @@ function Footer() {
         </div>
 
         {/* Legal bar */}
-        <div className="mt-16 flex flex-col gap-3 border-t border-black/[0.08] pt-7 text-[12px] text-[#86868b] md:flex-row md:items-center md:justify-between">
+        <div className="mt-16 flex flex-col items-center gap-3 border-t border-black/[0.08] pt-7 text-center text-[12px] text-[#86868b] md:flex-row md:items-center md:justify-between md:text-left">
           <p>© {year} Cunos Consulting Ltd. All rights reserved.</p>
-          <p className="inline-flex items-center gap-1.5">
+          <p className="inline-flex items-center justify-center gap-1.5">
             <MapPin size={12} strokeWidth={1.8} className="text-[#86868b]" />
             London, United Kingdom
           </p>
