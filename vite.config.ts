@@ -1,15 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-const repoName = 'cunos_temphomepage_leadmagnet_v2'
+const repoName = 'cunos_TempHonepage_LeadMagenet'
 
-export default defineConfig(({ command }) => ({
+export default defineConfig({
   plugins: [react()],
-  // Production builds (vite build) → /<repo>/ for GitHub Pages.
-  // Dev (vite serve) → '/' so localhost works as expected.
-  base: command === 'build' ? `/${repoName}/` : '/',
+  // GitHub Pages serves the site at /<repo>/ — env var lets local dev keep '/'
+  base: process.env.GITHUB_ACTIONS ? `/${repoName}/` : '/',
   server: {
     port: 5190,
     strictPort: false,
   },
-}))
+})
